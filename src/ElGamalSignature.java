@@ -3,7 +3,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-public class Main {
+public class ElGamalSignature {
     public static void main(String[] args) {
         BigInteger p = generatePrime(10, 20);
         System.out.println("p: "+p);
@@ -19,13 +19,13 @@ public class Main {
         System.out.println("Signature verified: " + verified);
     }
 
-    private static BigInteger generatePrime(int lowerBound, int upperBound) {
+    protected static BigInteger generatePrime(int lowerBound, int upperBound) {
         Random random = new Random();
         int bitLength = random.nextInt(upperBound - lowerBound) + lowerBound;
         return BigInteger.probablePrime(bitLength, random);
     }
 
-    private static BigInteger generatePrimitiveRoot(BigInteger p) {
+    protected static BigInteger generatePrimitiveRoot(BigInteger p) {
         BigInteger TWO = BigInteger.valueOf(2);
         BigInteger phi = p.subtract(BigInteger.ONE);
         for (BigInteger i = TWO; i.compareTo(p) < 0; i = i.add(BigInteger.ONE)) {
@@ -47,7 +47,7 @@ public class Main {
     }
 
 
-    private static BigInteger generatePrivateKey(BigInteger p) {
+    protected static BigInteger generatePrivateKey(BigInteger p) {
         Random random = new Random();
         return new BigInteger(p.bitLength() - 1, random);
     }
